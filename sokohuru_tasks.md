@@ -1,7 +1,94 @@
 # Sokohuru — Claude Code Task List
-> Two repos: `sokohuru-web` (Next.js 15 + Vercel middleware) · `sokohuru-mobile` (Flutter)
-> Domain: `sokohuru.co` (defined in `.env`, never hardcoded)
-> Web working dir: `app/` · Flutter working dir: `lib/`
+
+## Repo structure
+| Repo | Stack | Purpose | Domain | Vercel project |
+|------|-------|---------|--------|----------------|
+| `sokohuru-web` | Next.js 15 | SEO website only — public pages, campaign listings, creator profiles, auth funnel | `sokohuru.com` | Project 1 |
+| `sokohuru-api` | Next.js 15 (API routes only) | All middleware — secret keys, payments, fit score, webhooks, crons, PDF, affiliate tracking | `api.sokohuru.com` | Project 2 |
+| `sokohuru-mobile` | Flutter | Full product — Android, iOS, Web. All creator and brand functionality | n/a | n/a |
+
+## Data flow rule (applies to every task — never break this)
+```
+sokohuru-web (website):
+  ├── Fetches Supabase server-side with ANON KEY only
+  ├── Never holds secret keys (Stripe, M-Pesa, service role)
+  └── Auth funnel → redirects to Flutter app after signup
+
+sokohuru-mobile (Flutter):
+  ├── DIRECT TO SUPABASE — all CRUD, auth, realtime, storage
+  │   supabase.from('table').select/insert/update/delete
+  │   supabase.auth.signIn/signUp/signOut
+  │   supabase.from('table').stream()        ← realtime
+  │   supabase.storage.from('bucket').upload()
+  │
+  └── VIA api.sokohuru.com — only when secret keys needed
+      /fit-score              complex scoring (no secret, but heavy logic)
+      /contracts/[id]/sign    server-side validation guard
+      /payments/mpesa/*       MPESA_SECRET never touches Flutter
+      /payments/stripe/*      STRIPE_SECRET never touches Flutter
+      /track/[slug]           affiliate edge redirect
+      /reports/[id]/pdf       server-side PDF generation
+
+sokohuru-api (middleware):
+  ├── ALL secret keys live here ONLY
+  ├── Called by Flutter via HTTP with JWT in Authorization header
+  ├── Called by Supabase webhooks (verified by webhook secret)
+  ├── CORS: allows sokohuru.com + Flutter app bundle ID only
+  └── Never called directly from a browser
+
+RULE: Supabase RLS can protect it?  → direct to Supabase
+      Needs a secret key?            → api.sokohuru.com
+      Needs server-side logic?       → api.sokohuru.com
+      Simple read/write/stream?      → direct to Supabase
+```
+
+## Working directories
+- `sokohuru-web`    → Next.js App Router, working dir: `app/`
+- `sokohuru-api`    → Next.js App Router (routes only), working dir: `app/`
+- `sokohuru-mobile` → Flutter, working dir: `lib/`
+
+## Environment files
+
+### sokohuru-web/.env.local
+```env
+NEXT_PUBLIC_APP_URL=https://sokohuru.com
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+# NO secret keys in this file — ever
+```
+
+### sokohuru-api/.env.local
+```env
+API_URL=https://api.sokohuru.com
+APP_URL=https://sokohuru.com
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+SUPABASE_JWT_SECRET=your_jwt_secret
+SUPABASE_WEBHOOK_SECRET=your_webhook_secret
+MPESA_CONSUMER_KEY=your_mpesa_key
+MPESA_CONSUMER_SECRET=your_mpesa_secret
+MPESA_SHORTCODE=your_shortcode
+MPESA_PASSKEY=your_passkey
+MPESA_CALLBACK_URL=https://api.sokohuru.com/webhooks/mpesa
+STRIPE_SECRET_KEY=your_stripe_secret
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+RESEND_API_KEY=your_resend_key
+RESEND_FROM_EMAIL=noreply@sokohuru.com
+CRON_SECRET=your_32_char_random_string
+SENTRY_DSN=your_sentry_dsn
+ALLOWED_ORIGINS=https://sokohuru.com,https://api.sokohuru.com
+```
+
+### sokohuru-mobile/.env
+```env
+SUPABASE_URL=your_supabase_url
+SUPABASE_ANON_KEY=your_anon_key
+API_BASE_URL=https://api.sokohuru.com
+APP_URL=https://sokohuru.com
+SENTRY_DSN=your_sentry_dsn
+# NO secret keys in this file — ever
+```
 
 ---
 
@@ -9,7 +96,7 @@
 
 ### sokohuru-web/.env.local
 ```env
-NEXT_PUBLIC_APP_URL=https://sokohuru.co
+NEXT_PUBLIC_APP_URL=https://sokohuru.com
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
@@ -30,7 +117,7 @@ SENTRY_DSN=your_sentry_dsn
 ```env
 SUPABASE_URL=your_supabase_url
 SUPABASE_ANON_KEY=your_anon_key
-API_BASE_URL=https://sokohuru.co/api
+API_BASE_URL=https://sokohuru.com/api
 SENTRY_DSN=your_sentry_dsn
 ```
 
@@ -84,9 +171,15 @@ Spacing 4xl:      48px
 
 ---
 
+---
+
+# SPRINT 1A — sokohuru-web setup (SEO website only)
+
+---
+
 ## Task 1.1 — Next.js Project Setup + Vercel Deploy
 
-**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-web (SEO website — NO secret keys)
 
 ```
 Kim here. Run this command and return the full output:
@@ -1905,13 +1998,310 @@ DO NOT:
 
 ---
 
-# SPRINT 2 — Middleware Core (Week 2)
+---
+
+# SPRINT 1B — sokohuru-api setup (Middleware — all secrets live here)
+
+---
+
+## Task 1.18 — sokohuru-api Project Setup + Vercel Deploy
+
+**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-api
+
+```
+Kim here. Run this command and return the full output:
+
+"Set up the sokohuru-api middleware project — a Next.js 15 app
+with API routes only. No pages, no UI. Deploys to api.sokohuru.com.
+
+Rules:
+- Work in the sokohuru-api directory
+- npx tsc --noEmit must pass before commit
+- npx eslint . --ext .ts,.tsx must pass before commit
+- git add, git commit -m 'feat: sokohuru-api middleware project setup'
+- Push to main
+- Report: files created, Vercel deploy URL, any errors
+
+Project context:
+sokohuru-api is a standalone Next.js 15 project that serves ONLY
+API routes. No pages directory. No UI components. No Tailwind.
+All secret keys (Stripe, M-Pesa, Supabase service role) live
+ONLY in this project — never in sokohuru-web or sokohuru-mobile.
+Deployed to api.sokohuru.com as a separate Vercel project.
+Called by sokohuru-mobile (Flutter) via HTTP with JWT auth.
+Called by Supabase webhooks with webhook secret verification.
+
+Task:
+1. Initialise Next.js 15 project:
+   npx create-next-app@latest . --typescript --eslint --app
+   --no-tailwind --no-src-dir --import-alias='@/*'
+
+2. Delete all non-API files:
+   - Delete app/page.tsx
+   - Delete app/globals.css
+   - Delete public/ directory contents
+   - Keep app/layout.tsx as minimal shell (no UI)
+
+3. Install dependencies:
+   npm install @supabase/supabase-js zod resend stripe
+   npm install -D @types/node
+
+4. Create .env.local from sokohuru-api ENV template
+   (all values as placeholders — developer fills actual values)
+
+5. Create lib/config.ts (server-only — ALL env vars):
+   export const config = {
+     supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+     supabaseAnonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+     supabaseServiceRoleKey: process.env.SUPABASE_SERVICE_ROLE_KEY!,
+     supabaseJwtSecret: process.env.SUPABASE_JWT_SECRET!,
+     supabaseWebhookSecret: process.env.SUPABASE_WEBHOOK_SECRET!,
+     mpesaConsumerKey: process.env.MPESA_CONSUMER_KEY!,
+     mpesaConsumerSecret: process.env.MPESA_CONSUMER_SECRET!,
+     mpesaShortcode: process.env.MPESA_SHORTCODE!,
+     mpesaPasskey: process.env.MPESA_PASSKEY!,
+     mpesaCallbackUrl: process.env.MPESA_CALLBACK_URL!,
+     stripeSecretKey: process.env.STRIPE_SECRET_KEY!,
+     stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET!,
+     resendApiKey: process.env.RESEND_API_KEY!,
+     resendFromEmail: process.env.RESEND_FROM_EMAIL!,
+     cronSecret: process.env.CRON_SECRET!,
+     allowedOrigins: process.env.ALLOWED_ORIGINS!.split(','),
+     appUrl: process.env.APP_URL!,
+     apiUrl: process.env.API_URL!,
+   }
+   Throw descriptive error if any value is undefined.
+   Add comment: THIS FILE IS SERVER-ONLY. NEVER IMPORT IN CLIENT CODE.
+
+6. Create lib/supabase/admin.ts:
+   import { createClient } from '@supabase/supabase-js'
+   import { Database } from '@/types/database'
+   import { config } from '@/lib/config'
+   export const supabaseAdmin = createClient<Database>(
+     config.supabaseUrl,
+     config.supabaseServiceRoleKey
+   )
+   Comment: Uses service role key — bypasses RLS.
+   Only used server-side in API routes.
+
+7. Create lib/supabase/verify-jwt.ts:
+   Verifies JWT from Flutter/web Authorization header:
+   import { createClient } from '@supabase/supabase-js'
+   export async function verifyJwt(token: string) {
+     const client = createClient(config.supabaseUrl, config.supabaseAnonKey)
+     const { data: { user }, error } = await client.auth.getUser(token)
+     if (error || !user) throw new Error('Invalid token')
+     return user
+   }
+
+8. Create lib/cors.ts:
+   export function corsHeaders(origin: string | null) {
+     const allowed = config.allowedOrigins
+     const isAllowed = origin && allowed.includes(origin)
+     return {
+       'Access-Control-Allow-Origin': isAllowed ? origin : allowed[0],
+       'Access-Control-Allow-Methods': 'GET, POST, PATCH, DELETE, OPTIONS',
+       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+       'Access-Control-Max-Age': '86400',
+     }
+   }
+   export function withCors(response: Response, origin: string | null) {
+     const headers = corsHeaders(origin)
+     Object.entries(headers).forEach(([k, v]) =>
+       response.headers.set(k, v)
+     )
+     return response
+   }
+
+9. Create app/api/health/route.ts:
+   GET handler — returns { status: 'ok', timestamp: ISO string }
+   No auth required. Used to verify deployment is live.
+   Apply CORS headers.
+
+10. Create types/database.ts placeholder (same as sokohuru-web)
+
+11. Update next.config.ts:
+    No image domains needed (no UI).
+    Add comment: API-only project — no pages configured.
+
+12. Create vercel.json:
+    {
+      'buildCommand': 'next build',
+      'outputDirectory': '.next',
+      'framework': 'nextjs',
+      'regions': ['iad1', 'cdg1'],
+      'crons': []
+    }
+
+13. Deploy to Vercel as a NEW project:
+    npx vercel --prod
+    Note in report: this is a separate Vercel project from sokohuru-web
+
+Acceptance criteria:
+- [ ] npx tsc --noEmit passes
+- [ ] npx eslint . passes
+- [ ] No pages/ or UI files exist
+- [ ] GET /api/health returns { status: 'ok' }
+- [ ] CORS headers present on /api/health response
+- [ ] lib/config.ts throws if any env var missing
+- [ ] Deployed to Vercel — URL returned in report
+
+DO NOT:
+- Do not add any UI components or pages
+- Do not use NEXT_PUBLIC_ prefix for secret keys
+- Do not import lib/config.ts in any client component
+  (there are no client components — this is API only)" "/path/to/sokohuru-api"
+```
+
+---
+
+## Task 1.19 — CORS + JWT Auth Middleware (sokohuru-api)
+
+**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-api
+
+```
+Kim here. Run this command and return the full output:
+
+"Add request authentication and CORS middleware to sokohuru-api.
+Every protected route uses these utilities.
+
+Rules:
+- Branch from main as feature/cors-jwt-middleware
+- npx tsc --noEmit must pass before commit
+- npx eslint . --ext .ts,.tsx must pass before commit
+- git add, git commit -m 'feat: CORS and JWT auth middleware'
+- Push branch, open PR, merge to main
+- Report: PR link
+
+Task:
+1. Create lib/middleware/with-auth.ts:
+   Higher-order function that wraps route handlers:
+
+   type AuthenticatedHandler = (
+     request: Request,
+     context: { userId: string; params?: Record<string, string> }
+   ) => Promise<Response>
+
+   export function withAuth(handler: AuthenticatedHandler) {
+     return async (request: Request, context?: unknown) => {
+       const origin = request.headers.get('origin')
+
+       // Handle CORS preflight
+       if (request.method === 'OPTIONS') {
+         return new Response(null, {
+           status: 204,
+           headers: corsHeaders(origin)
+         })
+       }
+
+       // Extract and verify JWT
+       const authHeader = request.headers.get('authorization')
+       if (!authHeader?.startsWith('Bearer ')) {
+         return withCors(
+           Response.json({ error: 'Missing authorization header' },
+           { status: 401 }),
+           origin
+         )
+       }
+
+       const token = authHeader.split(' ')[1]
+       try {
+         const user = await verifyJwt(token)
+         const response = await handler(request, {
+           userId: user.id,
+           params: (context as any)?.params
+         })
+         return withCors(response, origin)
+       } catch {
+         return withCors(
+           Response.json({ error: 'Invalid or expired token' },
+           { status: 401 }),
+           origin
+         )
+       }
+     }
+   }
+
+2. Create lib/middleware/with-webhook.ts:
+   Verifies Supabase webhook signature:
+
+   export function withWebhook(
+     handler: (request: Request, body: unknown) => Promise<Response>
+   ) {
+     return async (request: Request) => {
+       const signature = request.headers.get('x-supabase-signature')
+       const body = await request.text()
+
+       // HMAC-SHA256 verification
+       const encoder = new TextEncoder()
+       const key = await crypto.subtle.importKey(
+         'raw',
+         encoder.encode(config.supabaseWebhookSecret),
+         { name: 'HMAC', hash: 'SHA-256' },
+         false,
+         ['verify']
+       )
+       const sigBytes = Buffer.from(signature ?? '', 'hex')
+       const bodyBytes = encoder.encode(body)
+       const valid = await crypto.subtle.verify('HMAC', key, sigBytes, bodyBytes)
+
+       if (!valid) {
+         return Response.json({ error: 'Invalid webhook signature' },
+           { status: 401 })
+       }
+
+       return handler(request, JSON.parse(body))
+     }
+   }
+
+3. Create lib/middleware/with-cron.ts:
+   Verifies Vercel cron secret:
+
+   export function withCron(
+     handler: (request: Request) => Promise<Response>
+   ) {
+     return async (request: Request) => {
+       const auth = request.headers.get('authorization')
+       if (auth !== \`Bearer \${config.cronSecret}\`) {
+         return Response.json({ error: 'Unauthorized' }, { status: 401 })
+       }
+       return handler(request)
+     }
+   }
+
+4. Update app/api/health/route.ts to use withCors:
+   Apply CORS to OPTIONS preflight + GET response
+
+5. Create lib/utils/response.ts:
+   Helper for consistent JSON responses:
+   export const ok = (data: unknown) =>
+     Response.json({ success: true, data })
+   export const err = (message: string, status = 400) =>
+     Response.json({ success: false, error: message }, { status })
+
+Acceptance criteria:
+- [ ] withAuth returns 401 for missing Authorization header
+- [ ] withAuth returns 401 for invalid JWT
+- [ ] withAuth passes userId to handler for valid JWT
+- [ ] withWebhook returns 401 for invalid signature
+- [ ] withCron returns 401 for wrong secret
+- [ ] OPTIONS requests return 204 with CORS headers
+- [ ] npx tsc --noEmit passes
+
+DO NOT:
+- Do not use any third-party auth library — use Supabase JWT verification
+- Do not skip CORS on any route — withAuth applies it automatically" "/path/to/sokohuru-api"
+```
+
+---
+
+# SPRINT 2 — sokohuru-api Middleware Routes
 
 ---
 
 ## Task 2.1 — Supabase Webhook Receiver
 
-**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -1927,9 +2317,9 @@ Rules:
 - Report: PR link
 
 Project context:
-Supabase fires webhooks when rows are inserted/updated in key tables.
-This endpoint receives those webhooks and routes to the appropriate
-handler. Webhooks are verified using a shared secret.
+sokohuru-api receives Supabase database webhooks. All secret
+verification logic lives here — never in sokohuru-web.
+Uses withWebhook middleware from Task 1.19 for signature verification.
 
 Tables that fire webhooks:
 - campaign_submissions (INSERT → notify brand, UPDATE → notify creator)
@@ -2017,7 +2407,7 @@ Acceptance criteria:
 
 ## Task 2.2 — Notification Dispatch + Email (/api/notify)
 
-**Priority:** P1 · **Estimate:** M · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** M · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -2123,7 +2513,7 @@ Acceptance criteria:
 
 ## Task 2.3 — Fit Score Engine (/api/fit-score)
 
-**Priority:** P1 · **Estimate:** M · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** M · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -2248,7 +2638,7 @@ Acceptance criteria:
 
 ## Task 2.4 — Affiliate Link Tracker (Edge Function)
 
-**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** S · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -2326,7 +2716,7 @@ Acceptance criteria:
 
 ## Task 2.5 — Contract Signing Verification (/api/contracts/sign)
 
-**Priority:** P1 · **Estimate:** M · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** M · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -2418,7 +2808,7 @@ Acceptance criteria:
 
 ## Task 2.6 — M-Pesa Payment Integration
 
-**Priority:** P1 · **Estimate:** L · **Target:** sokohuru-web
+**Priority:** P1 · **Estimate:** L · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -2518,7 +2908,7 @@ DO NOT:
 
 ## Task 2.7 — Campaign Expiry + Contract Expiry Crons
 
-**Priority:** P2 · **Estimate:** S · **Target:** sokohuru-web
+**Priority:** P2 · **Estimate:** S · **Target:** sokohuru-api
 
 ```
 Kim here. Run this command and return the full output:
@@ -2927,7 +3317,9 @@ Task:
    static const contractSign = '/contracts'; // + /{id}/sign
    static const mPesaInitiate = '/payments/mpesa/initiate';
    static const trackAffiliate = '/track'; // + /{slug}
-   static const notify = '/notify';
+   static const reports = '/reports'; // + /{id}/pdf
+   // All routes resolve to api.sokohuru.com/{endpoint}
+   // AppConfig.apiBaseUrl = https://api.sokohuru.com
 
 4. Create lib/features/campaigns/services/fit_score_service.dart:
    class FitScoreService:
@@ -3109,6 +3501,7 @@ Acceptance criteria:
 ## DEPENDENCY MAP
 
 ```
+sokohuru-web (SEO website):
 1.1 → 1.2 → 1.3 → 1.4 → 1.5
                 ↓         ↓
               1.6       1.7
@@ -3116,24 +3509,29 @@ Acceptance criteria:
               1.8 → 1.9 → 1.10 → 1.11
                 ↓
               1.12 → 1.13 → 1.14 → 1.15 → 1.16 → 1.17
-                                              ↓
-                                           2.1 → 2.2
-                                           2.3
-                                           2.4
-                                           2.5
-                                           2.6
-                                           2.7
-                                              ↓
-                                  2.8 → 2.9 → 2.10
-                                              ↓
-                              3.1-3.5 (web) ─┤
-                              3.6-3.10 (flutter) ─┘
-                                              ↓
-                              4.1-4.8 (payments + contracts)
-                                              ↓
-                              5.1-5.7 (content + reports)
-                                              ↓
-                              6.1-6.10 (polish + launch)
+
+sokohuru-api (middleware — independent repo, parallel track):
+1.18 → 1.19 → 2.1 → 2.2
+                     2.3
+                     2.4
+                     2.5
+                     2.6
+                     2.7
+
+sokohuru-mobile (Flutter — starts week 2):
+2.8 → 2.9 → 2.10
+               ↓
+3.6 → 3.7 → 3.8 → 3.9 → 3.10
+               ↓
+4.1 → 4.2 → 4.3 → 4.4 → 4.5 → 4.6 → 4.7 → 4.8
+               ↓
+5.1 → 5.2 → 5.3 → 5.4 → 5.5 → 5.6 → 5.7
+               ↓
+6.1 → 6.2 → 6.3 → 6.4 → 6.5 → 6.6 → 6.7 → 6.8 → 6.9 → 6.10
+
+Cross-repo dependency:
+sokohuru-api must be deployed (Task 1.18) before
+sokohuru-mobile can call api.sokohuru.com (Task 2.10+)
 ```
 
 ---
