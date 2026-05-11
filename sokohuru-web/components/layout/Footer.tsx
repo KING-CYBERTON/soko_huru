@@ -148,18 +148,12 @@ export function Footer() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="transition-colors duration-150"
+                        className="transition-colors duration-150 hover:[color:var(--sk-text-secondary)]"
                         style={{
                           fontFamily: 'Inter, sans-serif',
                           fontSize: '12px',
                           lineHeight: 2,
                           color: 'var(--sk-text-muted)',
-                        }}
-                        onMouseEnter={(e) => {
-                          e.currentTarget.style.color = 'var(--sk-text-secondary)';
-                        }}
-                        onMouseLeave={(e) => {
-                          e.currentTarget.style.color = 'var(--sk-text-muted)';
                         }}
                       >
                         {link.label}
@@ -201,42 +195,24 @@ export function Footer() {
           >
             <Link
               href="/privacy"
-              className="transition-colors duration-150"
+              className="transition-colors duration-150 hover:[color:var(--sk-text-secondary)]"
               style={{ color: 'var(--sk-text-muted)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-muted)';
-              }}
             >
               Privacy
             </Link>
             <span>·</span>
             <Link
               href="/terms"
-              className="transition-colors duration-150"
+              className="transition-colors duration-150 hover:[color:var(--sk-text-secondary)]"
               style={{ color: 'var(--sk-text-muted)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-muted)';
-              }}
             >
               Terms
             </Link>
             <span>·</span>
             <Link
               href="/status"
-              className="transition-colors duration-150"
+              className="transition-colors duration-150 hover:[color:var(--sk-text-secondary)]"
               style={{ color: 'var(--sk-text-muted)' }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-muted)';
-              }}
             >
               Status
             </Link>

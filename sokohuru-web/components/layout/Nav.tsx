@@ -78,17 +78,11 @@ export function Nav() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="transition-colors duration-150"
+                className="transition-colors duration-150 hover:[color:var(--sk-text-primary)]"
                 style={{
                   fontFamily: 'Inter, sans-serif',
                   fontSize: '14px',
                   color: 'var(--sk-text-secondary)',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = 'var(--sk-text-primary)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = 'var(--sk-text-secondary)';
                 }}
               >
                 {link.label}
@@ -100,17 +94,11 @@ export function Nav() {
           <div className="hidden md:flex items-center gap-6">
             <Link
               href="/auth/login"
-              className="transition-colors duration-150"
+              className="transition-colors duration-150 hover:[color:var(--sk-text-primary)]"
               style={{
                 fontFamily: 'Inter, sans-serif',
                 fontSize: '14px',
                 color: 'var(--sk-text-secondary)',
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-primary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = 'var(--sk-text-secondary)';
               }}
             >
               Log in
