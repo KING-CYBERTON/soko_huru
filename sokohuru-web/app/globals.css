@@ -1,26 +1,171 @@
+/* Import Clash Display from Fontshare */
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap');
+
+/* Import Plus Jakarta Sans from @fontsource */
+@import '@fontsource/plus-jakarta-sans/400.css';
+@import '@fontsource/plus-jakarta-sans/500.css';
+@import '@fontsource/plus-jakarta-sans/600.css';
+@import '@fontsource/plus-jakarta-sans/700.css';
+
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary */
+  --sk-pink: #C8185A;
+  --sk-pink-light: #E8509A;
+  --sk-pink-dark: #3A0E22;
+  --sk-pink-50: #3A0E22;
+  --sk-pink-100: #5C1636;
+  --sk-pink-200: #7D1240;
+  --sk-pink-400: #A8164F;
+  --sk-pink-600: #C8185A;
+  --sk-pink-800: #E8509A;
+  --sk-pink-900: #F9B8D4;
+
+  /* Surfaces */
+  --sk-base: #0C0B14;
+  --sk-surface-1: #111018;
+  --sk-surface-2: #1A1826;
+  --sk-surface-3: #1E1C2A;
+  --sk-border: #2E2B40;
+  --sk-muted: #4A4760;
+
+  /* Text */
+  --sk-text-primary: #F0EEF8;
+  --sk-text-secondary: #8E8AA8;
+  --sk-text-muted: #6B6880;
+  --sk-text-disabled: #4A4760;
+
+  /* Semantic */
+  --sk-success: #0F6E56;
+  --sk-success-surface: #0B2318;
+  --sk-success-text: #5DCAA5;
+  --sk-warning: #854F0B;
+  --sk-warning-surface: #2A1A04;
+  --sk-warning-text: #FAC775;
+  --sk-error: #A32D2D;
+  --sk-error-surface: #2A0A0A;
+  --sk-error-text: #F09595;
+  --sk-info: #185FA5;
+  --sk-info-surface: #0A1A2E;
+  --sk-info-text: #85B7EB;
+
+  /* Light mode (website sections) */
+  --sk-light-bg: #FFFFFF;
+  --sk-light-surface: #F7F6FB;
+  --sk-light-subtle: #EEEDF7;
+  --sk-light-border: #C8C4E0;
+  --sk-light-text: #111018;
+  --sk-light-text-secondary: #4A4760;
+
+  /* Spacing */
+  --sk-space-xs: 4px;
+  --sk-space-sm: 8px;
+  --sk-space-md: 12px;
+  --sk-space-lg: 16px;
+  --sk-space-xl: 20px;
+  --sk-space-2xl: 24px;
+  --sk-space-3xl: 32px;
+  --sk-space-4xl: 48px;
+
+  /* Radius */
+  --sk-radius-xs: 4px;
+  --sk-radius-sm: 8px;
+  --sk-radius-md: 12px;
+  --sk-radius-lg: 16px;
+  --sk-radius-xl: 20px;
+  --sk-radius-full: 9999px;
+
+  /* Fonts */
+  --sk-font-display: 'Clash Display', sans-serif;
+  --sk-font-body: 'Plus Jakarta Sans', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Colors - map to sk-* classes */
+  --color-sk-pink: var(--sk-pink);
+  --color-sk-pink-light: var(--sk-pink-light);
+  --color-sk-pink-dark: var(--sk-pink-dark);
+  --color-sk-pink-50: var(--sk-pink-50);
+  --color-sk-pink-100: var(--sk-pink-100);
+  --color-sk-pink-200: var(--sk-pink-200);
+  --color-sk-pink-400: var(--sk-pink-400);
+  --color-sk-pink-600: var(--sk-pink-600);
+  --color-sk-pink-800: var(--sk-pink-800);
+  --color-sk-pink-900: var(--sk-pink-900);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-sk-base: var(--sk-base);
+  --color-sk-surface-1: var(--sk-surface-1);
+  --color-sk-surface-2: var(--sk-surface-2);
+  --color-sk-surface-3: var(--sk-surface-3);
+  --color-sk-border: var(--sk-border);
+  --color-sk-muted: var(--sk-muted);
+
+  --color-sk-text-primary: var(--sk-text-primary);
+  --color-sk-text-secondary: var(--sk-text-secondary);
+  --color-sk-text-muted: var(--sk-text-muted);
+  --color-sk-text-disabled: var(--sk-text-disabled);
+
+  --color-sk-success: var(--sk-success);
+  --color-sk-success-surface: var(--sk-success-surface);
+  --color-sk-success-text: var(--sk-success-text);
+  --color-sk-warning: var(--sk-warning);
+  --color-sk-warning-surface: var(--sk-warning-surface);
+  --color-sk-warning-text: var(--sk-warning-text);
+  --color-sk-error: var(--sk-error);
+  --color-sk-error-surface: var(--sk-error-surface);
+  --color-sk-error-text: var(--sk-error-text);
+  --color-sk-info: var(--sk-info);
+  --color-sk-info-surface: var(--sk-info-surface);
+  --color-sk-info-text: var(--sk-info-text);
+
+  --color-sk-light-bg: var(--sk-light-bg);
+  --color-sk-light-surface: var(--sk-light-surface);
+  --color-sk-light-subtle: var(--sk-light-subtle);
+  --color-sk-light-border: var(--sk-light-border);
+  --color-sk-light-text: var(--sk-light-text);
+  --color-sk-light-text-secondary: var(--sk-light-text-secondary);
+
+  /* Font families */
+  --font-family-display: var(--sk-font-display);
+  --font-family-body: var(--sk-font-body);
+
+  /* Border radius */
+  --radius-sk-xs: var(--sk-radius-xs);
+  --radius-sk-sm: var(--sk-radius-sm);
+  --radius-sk-md: var(--sk-radius-md);
+  --radius-sk-lg: var(--sk-radius-lg);
+  --radius-sk-xl: var(--sk-radius-xl);
+  --radius-sk-full: var(--sk-radius-full);
+
+  /* Spacing */
+  --spacing-sk-xs: var(--sk-space-xs);
+  --spacing-sk-sm: var(--sk-space-sm);
+  --spacing-sk-md: var(--sk-space-md);
+  --spacing-sk-lg: var(--sk-space-lg);
+  --spacing-sk-xl: var(--sk-space-xl);
+  --spacing-sk-2xl: var(--sk-space-2xl);
+  --spacing-sk-3xl: var(--sk-space-3xl);
+  --spacing-sk-4xl: var(--sk-space-4xl);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--sk-base);
+  color: var(--sk-text-primary);
+  font-family: var(--sk-font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset default margins and paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
