@@ -11,7 +11,25 @@
 
 export type Database = {
   public: {
-    Tables: Record<string, never>;
+    Tables: {
+      user_roles: {
+        Row: {
+          id: string;
+          role: 'creator' | 'brand';
+          created_at: string;
+        };
+        Insert: {
+          id: string;
+          role: 'creator' | 'brand';
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          role?: 'creator' | 'brand';
+          created_at?: string;
+        };
+      };
+    };
     Views: Record<string, never>;
     Functions: Record<string, never>;
     Enums: Record<string, never>;
