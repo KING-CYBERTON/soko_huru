@@ -3,15 +3,15 @@ import { updateSession } from '@/lib/supabase/middleware';
 import { createServerClient } from '@supabase/ssr';
 
 /**
- * Next.js Middleware
+ * Next.js Proxy
  * Runs on every request to refresh Supabase auth sessions and handle protected routes
  *
- * This middleware:
+ * This proxy:
  * 1. Refreshes the user's auth token on every request
  * 2. Protects dashboard and onboarding routes (requires authentication)
  * 3. Redirects authenticated users away from auth pages to their dashboards
  */
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   // First, refresh the session
   const supabaseResponse = await updateSession(request);
 
