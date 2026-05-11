@@ -1,0 +1,58 @@
+import Link from 'next/link';
+
+export function CTABanner() {
+  return (
+    <section
+      className="py-16 px-20 max-md:px-5 max-md:py-12"
+      style={{
+        background: 'var(--sk-pink)',
+      }}
+    >
+      <div className="max-w-[1200px] mx-auto flex items-center justify-between gap-8 max-md:flex-col max-md:text-center">
+        {/* Text left */}
+        <div>
+          <h2
+            style={{
+              fontFamily: 'var(--sk-font-display)',
+              fontSize: '40px',
+              fontWeight: 600,
+              color: '#FFFFFF',
+              lineHeight: 1.2,
+            }}
+          >
+            Ready to build the future?
+          </h2>
+          <p
+            className="mt-3"
+            style={{
+              fontSize: '16px',
+              color: 'rgba(255, 255, 255, 0.7)',
+              fontFamily: 'var(--sk-font-body)',
+            }}
+          >
+            Join thousands of businesses already growing with Sokohuru.
+          </p>
+        </div>
+
+        {/* Button right */}
+        <Link href="/auth/signup" className="max-md:w-full">
+          <button
+            className="px-8 py-4 rounded-lg transition-opacity hover:opacity-90 max-md:w-full"
+            style={{
+              background: '#FFFFFF',
+              color: 'var(--sk-pink)',
+              fontSize: '16px',
+              fontWeight: 600,
+              fontFamily: 'var(--sk-font-body)',
+              border: 'none',
+              cursor: 'pointer',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            Get Started Today →
+          </button>
+        </Link>
+      </div>
+    </section>
+  );
+}
