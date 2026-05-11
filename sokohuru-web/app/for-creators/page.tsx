@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui';
-import { APP_URL } from '@/lib/config';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -117,12 +116,12 @@ export default function ForCreatorsPage() {
             Join thousands of East African creators earning real income from brand partnerships. Your content, your terms, your income.
           </p>
           <div className="flex items-center justify-center gap-3 mt-8 max-md:flex-col max-md:w-full">
-            <Link href={`${APP_URL}/download`} className="max-md:w-full">
+            <Link href="/download" className="max-md:w-full">
               <Button variant="primary" size="lg" fullWidth className="max-md:w-full">
                 Download iOS
               </Button>
             </Link>
-            <Link href={`${APP_URL}/download`} className="max-md:w-full">
+            <Link href="/download" className="max-md:w-full">
               <Button variant="secondary" size="lg" fullWidth className="max-md:w-full">
                 Download Android
               </Button>
@@ -358,7 +357,7 @@ export default function ForCreatorsPage() {
             Ready to start creating?
           </h2>
           <div className="flex items-center justify-center gap-3 max-md:flex-col max-md:w-full">
-            <Link href={`${APP_URL}/download`} className="max-md:w-full">
+            <Link href="/download" className="max-md:w-full">
               <button
                 className="px-8 py-4 rounded-lg transition-opacity hover:opacity-90 max-md:w-full"
                 style={{
@@ -374,7 +373,7 @@ export default function ForCreatorsPage() {
                 App Store
               </button>
             </Link>
-            <Link href={`${APP_URL}/download`} className="max-md:w-full">
+            <Link href="/download" className="max-md:w-full">
               <button
                 className="px-8 py-4 rounded-lg transition-opacity hover:opacity-90 max-md:w-full"
                 style={{
