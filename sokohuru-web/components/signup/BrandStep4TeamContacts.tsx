@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Button } from '@/components/ui';
+import { trackEvent, EVENTS } from '@/lib/analytics';
 
 interface ContactData {
   firstName: string;
@@ -77,6 +78,9 @@ export function BrandStep4TeamContacts({ searchParams, onSubmit }: Step4Props) {
       };
 
       await onSubmit(allData);
+
+      // Track signup completed
+      trackEvent(EVENTS.BRAND_SIGNUP_COMPLETED);
 
       sessionStorage.removeItem('brand_signup_password');
     } catch (error) {

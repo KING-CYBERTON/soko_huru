@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui';
+import { trackEvent, EVENTS } from '@/lib/analytics';
 
 interface Step1Data {
   firstName: string;
@@ -36,6 +37,11 @@ export function Step1AccountDetails({ initialData }: Step1Props) {
   });
 
   const [errors, setErrors] = useState<Partial<Record<keyof Step1Data, string>>>({});
+
+  // Track signup started
+  useEffect(() => {
+    trackEvent(EVENTS.CREATOR_SIGNUP_STARTED);
+  }, []);
 
   const validate = (): boolean => {
     const newErrors: Partial<Record<keyof Step1Data, string>> = {};

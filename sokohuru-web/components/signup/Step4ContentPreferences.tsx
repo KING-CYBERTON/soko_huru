@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui';
+import { trackEvent, EVENTS } from '@/lib/analytics';
 
 interface Step4Data {
   contentFormats: string[];
@@ -102,6 +103,9 @@ export function Step4ContentPreferences({ initialData, searchParams, onSubmit }:
       };
 
       await onSubmit(allData);
+
+      // Track signup completed
+      trackEvent(EVENTS.CREATOR_SIGNUP_COMPLETED);
 
       // Clear password from session storage
       sessionStorage.removeItem('creator_signup_password');
