@@ -3,5 +3,14 @@
   "outputDirectory": ".next",
   "framework": "nextjs",
   "regions": ["iad1", "cdg1"],
-  "crons": []
+  "crons": [
+    {
+      "path": "/api/cron/expire-campaigns",
+      "schedule": "0 0 * * *"
+    },
+    {
+      "path": "/api/cron/expire-contracts",
+      "schedule": "0 1 * * *"
+    }
+  ]
 }
