@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Hero } from '@/components/sections/Hero';
 import { TrustedBy } from '@/components/sections/TrustedBy';
+import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Features } from '@/components/sections/Features';
 import { Stats } from '@/components/sections/Stats';
 import { Testimonial } from '@/components/sections/Testimonial';
@@ -17,6 +18,7 @@ export default function Home() {
     <main>
       <Hero />
       <TrustedBy />
+      <HowItWorks />
       <Features />
       <Stats />
       <Testimonial />
