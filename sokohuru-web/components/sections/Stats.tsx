@@ -1,3 +1,48 @@
+'use client';
+
+import { useRef, useEffect, useState } from 'react';
+import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
+
+interface CountUpProps {
+  value: string;
+  inView: boolean;
+}
+
+function CountUp({ value, inView }: CountUpProps) {
+  const [displayValue, setDisplayValue] = useState('0');
+
+  useEffect(() => {
+    if (!inView) return;
+
+    // Parse the numeric part and suffix from the value
+    const match = value.match(/^([\d.]+)(.*)$/);
+    if (!match) {
+      setDisplayValue(value);
+      return;
+    }
+
+    const numericValue = parseFloat(match[1]);
+    const suffix = match[2];
+
+    const controls = animate(0, numericValue, {
+      duration: 1.5,
+      ease: 'easeOut',
+      onUpdate(latest) {
+        // Format based on whether it's a decimal
+        if (value.includes('.')) {
+          setDisplayValue(latest.toFixed(2) + suffix);
+        } else {
+          setDisplayValue(Math.floor(latest) + suffix);
+        }
+      },
+    });
+
+    return () => controls.stop();
+  }, [inView, value]);
+
+  return <>{displayValue}</>;
+}
+
 const stats = [
   { value: '10K+', label: 'Verified creators' },
   { value: '500+', label: 'Brand campaigns run' },
@@ -5,9 +50,18 @@ const stats = [
   { value: '99.99%', label: 'Platform uptime' },
 ];
 
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+};
+
 export function Stats() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
   return (
-    <section
+    <motion.section
+      ref={ref}
       className="py-20 px-20 max-md:px-5 max-md:py-16"
       style={{
         background: 'linear-gradient(180deg, var(--sk-surface-1) 0%, var(--sk-base) 100%)',
@@ -55,7 +109,13 @@ export function Stats() {
           </div>
 
           {/* Right column - Stats grid */}
-          <div className="grid grid-cols-2 gap-8 max-md:gap-6">
+          <motion.div
+            className="grid grid-cols-2 gap-8 max-md:gap-6"
+            variants={fadeUp}
+            initial="initial"
+            animate={isInView ? 'animate' : 'initial'}
+            transition={{ delay: 0.2 }}
+          >
             {stats.map((stat) => (
               <div key={stat.label}>
                 <div
@@ -67,7 +127,7 @@ export function Stats() {
                     marginBottom: '8px',
                   }}
                 >
-                  {stat.value}
+                  <CountUp value={stat.value} inView={isInView} />
                 </div>
                 <div
                   style={{
@@ -80,7 +140,7 @@ export function Stats() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Disclaimer */}
@@ -96,6 +156,6 @@ export function Stats() {
           </p>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

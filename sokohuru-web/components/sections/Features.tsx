@@ -1,3 +1,7 @@
+'use client';
+
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
 import { Users, Shield, BarChart3, Wallet } from 'lucide-react';
 
 const features = [
@@ -23,9 +27,26 @@ const features = [
   },
 ];
 
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
 export function Features() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.2 });
+
   return (
     <section
+      ref={ref}
       className="py-20 px-20 max-md:px-5 max-md:py-16"
       style={{ background: 'var(--sk-base)' }}
     >
@@ -71,13 +92,21 @@ export function Features() {
         </div>
 
         {/* Feature cards grid */}
-        <div className="grid grid-cols-2 gap-6 max-md:grid-cols-1">
+        <motion.div
+          className="grid grid-cols-2 gap-6 max-md:grid-cols-1"
+          variants={staggerContainer}
+          initial="initial"
+          animate={isInView ? 'animate' : 'initial'}
+        >
           {features.map((feature) => {
             const Icon = feature.Icon;
             return (
-              <div
+              <motion.div
                 key={feature.title}
                 className="p-7"
+                variants={fadeUp}
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.2 }}
                 style={{
                   background: 'var(--sk-surface-1)',
                   borderRadius: 'var(--sk-radius-lg)',
@@ -117,10 +146,10 @@ export function Features() {
                 >
                   {feature.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
