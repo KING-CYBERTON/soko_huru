@@ -20,7 +20,7 @@ export function CTABanner() {
               lineHeight: 1.2,
             }}
           >
-            Ready to build the future?
+            Ready to launch your first campaign?
           </h2>
           <p
             className="mt-3"
@@ -30,7 +30,7 @@ export function CTABanner() {
               fontFamily: 'var(--sk-font-body)',
             }}
           >
-            Join thousands of businesses already growing with Sokohuru.
+            Join brands and creators already growing with Sokohuru. No subscription required.
           </p>
         </div>
 
@@ -49,7 +49,7 @@ export function CTABanner() {
               whiteSpace: 'nowrap',
             }}
           >
-            Get Started Today →
+            Get started free →
           </button>
         </Link>
       </div>

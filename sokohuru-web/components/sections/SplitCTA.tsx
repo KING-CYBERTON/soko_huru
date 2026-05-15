@@ -45,11 +45,11 @@ export function SplitCTA() {
               fontFamily: 'var(--sk-font-body)',
             }}
           >
-            Join thousands of creators earning from brand partnerships. Connect with brands that match your audience, negotiate fair deals, and get paid on time.
+            Join thousands of creators earning from brand partnerships. UGC, affiliate, ambassador deals — you negotiate, we handle the rest.
           </p>
           <Link href="/auth/signup?role=creator" className="inline-block mt-8">
             <Button variant="primary" size="lg">
-              Join as Creator →
+              Start creating →
             </Button>
           </Link>
         </div>
@@ -96,7 +96,7 @@ export function SplitCTA() {
               fontFamily: 'var(--sk-font-body)',
             }}
           >
-            Launch campaigns that connect with authentic audiences. Browse verified creators, track performance in real-time, and measure ROI with precision.
+            Access a curated pool of verified East African creators. Launch a campaign in minutes, track ROI in real time, pay only when content is approved.
           </p>
           <Link href="/auth/signup?role=brand" className="inline-block mt-8">
             <button
@@ -111,7 +111,7 @@ export function SplitCTA() {
                 cursor: 'pointer',
               }}
             >
-              Post a Campaign →
+              Post a campaign →
             </button>
           </Link>
         </div>

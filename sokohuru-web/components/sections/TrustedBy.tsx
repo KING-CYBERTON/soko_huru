@@ -1,5 +1,6 @@
 export function TrustedBy() {
-  const brands = ['Vertex', 'Nexora', 'Pocket', 'Cloudage', 'Layers', 'Fluxor'];
+  // Replace with real logos when available
+  const brands = ['Jumia', 'Safaricom', 'KCB Group', 'Nation Media', 'Equity Bank', 'Uber Eats Kenya'];
 
   return (
     <section
@@ -21,7 +22,7 @@ export function TrustedBy() {
             letterSpacing: '.05em',
           }}
         >
-          TRUSTED BY INNOVATIVE COMPANIES
+          TRUSTED BY BRANDS ACROSS EAST AFRICA
         </span>
 
         {/* Right - Brand names */}

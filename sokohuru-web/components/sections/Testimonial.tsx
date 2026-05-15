@@ -1,5 +1,3 @@
-import { Avatar } from '@/components/ui';
-
 export function Testimonial() {
   return (
     <section
@@ -35,12 +33,11 @@ export function Testimonial() {
             fontFamily: 'var(--sk-font-body)',
           }}
         >
-          Sokohuru has transformed the way we manage creator partnerships. The platform is reliable, secure, and incredibly easy to use.
+          We launched our first Sokohuru campaign and had 12 verified creators apply within 48 hours. The platform made the whole process effortless.
         </p>
 
-        {/* Attribution */}
+        {/* Attribution - Replace with real testimonial when first brand completes a campaign */}
         <div className="flex items-center gap-4">
-          <Avatar initials="AK" size="lg" />
           <div>
             <div
               style={{
@@ -50,7 +47,7 @@ export function Testimonial() {
                 fontFamily: 'var(--sk-font-body)',
               }}
             >
-              Amina Karimi
+              Early access brand partner
             </div>
             <div
               style={{
@@ -59,19 +56,8 @@ export function Testimonial() {
                 fontFamily: 'var(--sk-font-body)',
               }}
             >
-              CEO, Nexora · Nairobi
+              Nairobi, Kenya
             </div>
-          </div>
-          {/* 5 star rating */}
-          <div className="flex items-center gap-1 ml-auto">
-            {[...Array(5)].map((_, i) => (
-              <svg key={i} width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M8 1L10 5.5L15 6.5L11.5 10L12.5 15L8 12.5L3.5 15L4.5 10L1 6.5L6 5.5L8 1Z"
-                  fill="var(--sk-pink)"
-                />
-              </svg>
-            ))}
           </div>
         </div>
       </div>

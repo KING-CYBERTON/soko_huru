@@ -1,8 +1,8 @@
 const stats = [
-  { value: '10K+', label: 'Active Businesses' },
-  { value: '250M+', label: 'Transactions' },
-  { value: '120+', label: 'Countries Served' },
-  { value: '99.99%', label: 'Platform Uptime' },
+  { value: '10K+', label: 'Verified creators' },
+  { value: '500+', label: 'Brand campaigns run' },
+  { value: '120+', label: 'Countries reached' },
+  { value: '99.99%', label: 'Platform uptime' },
 ];
 
 export function Stats() {
@@ -50,7 +50,7 @@ export function Stats() {
                 fontFamily: 'var(--sk-font-body)',
               }}
             >
-              Trusted by businesses worldwide to power their most critical operations. Our platform handles billions in transactions while maintaining industry-leading reliability.
+              Trusted by brands running campaigns across East Africa, from Nairobi to Lagos to Cape Town.
             </p>
           </div>
 
@@ -81,6 +81,19 @@ export function Stats() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="text-center mt-12">
+          <p
+            style={{
+              fontSize: '11px',
+              color: 'var(--sk-text-muted)',
+              fontFamily: 'var(--sk-font-body)',
+            }}
+          >
+            * Stats represent platform targets for Year 1
+          </p>
         </div>
       </div>
     </section>

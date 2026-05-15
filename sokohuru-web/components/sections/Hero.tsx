@@ -1,7 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from '@/components/ui';
+import { ShieldCheck } from 'lucide-react';
 
 export function Hero() {
+  const scrollToHowItWorks = () => {
+    const element = document.getElementById('how-it-works');
+    element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <section
       className="min-h-screen flex items-center px-20 max-md:px-5 max-md:py-16"
@@ -21,7 +29,7 @@ export function Hero() {
               fontFamily: 'var(--sk-font-body)',
             }}
           >
-            A PRODUCT OF SOKOHURU
+            THE EAST AFRICAN CREATOR MARKETPLACE
           </span>
 
           {/* H1 */}
@@ -35,10 +43,10 @@ export function Hero() {
               lineHeight: 1.1,
             }}
           >
-            Smart solutions.
+            Connect brands with
             <br />
-            Real{' '}
-            <span style={{ color: 'var(--sk-pink)' }}>impact.</span>
+            the right{' '}
+            <span style={{ color: 'var(--sk-pink)' }}>creators.</span>
           </h1>
 
           {/* Subtext */}
@@ -51,31 +59,39 @@ export function Hero() {
               fontFamily: 'var(--sk-font-body)',
             }}
           >
-            We empower businesses with modern technology to move faster, operate smarter, and grow beyond limits.
+            Authentic campaigns, real results. Brands find verified East African creators. Creators earn real income from partnerships they believe in.
           </p>
 
           {/* Button row */}
           <div className="flex items-center gap-3 mt-8 max-md:flex-col max-md:w-full">
             <Link href="/auth/signup" className="max-md:w-full">
               <Button variant="primary" size="lg" fullWidth className="max-md:w-full">
-                Get Started →
+                Start for free →
               </Button>
             </Link>
-            <Link href="/for-brands" className="max-md:w-full">
-              <Button variant="secondary" size="lg" fullWidth className="max-md:w-full">
-                Explore Solutions
-              </Button>
-            </Link>
+            <button
+              onClick={scrollToHowItWorks}
+              className="max-md:w-full"
+              style={{
+                padding: '12px 24px',
+                background: 'transparent',
+                border: '1px solid var(--sk-border)',
+                borderRadius: 'var(--sk-radius-md)',
+                color: 'var(--sk-text-primary)',
+                fontSize: '15px',
+                fontWeight: 500,
+                fontFamily: 'var(--sk-font-body)',
+                cursor: 'pointer',
+                transition: 'border-color 0.2s',
+              }}
+            >
+              See how it works
+            </button>
           </div>
 
           {/* Trust line */}
           <div className="flex items-center gap-2 mt-6">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                d="M8 1L10.5 5.5L15.5 6.5L11.75 10.5L12.5 15.5L8 13L3.5 15.5L4.25 10.5L0.5 6.5L5.5 5.5L8 1Z"
-                fill="var(--sk-text-muted)"
-              />
-            </svg>
+            <ShieldCheck size={16} style={{ color: 'var(--sk-text-muted)' }} />
             <span
               style={{
                 fontSize: '13px',
@@ -83,7 +99,7 @@ export function Hero() {
                 fontFamily: 'var(--sk-font-body)',
               }}
             >
-              Enterprise-grade security · Built for trust
+              No subscription required · Pay per campaign
             </span>
           </div>
         </div>
@@ -113,13 +129,13 @@ export function Hero() {
                   { label: 'Overview', active: true },
                   { label: 'Campaigns', active: false },
                   { label: 'Creators', active: false },
-                  { label: 'Analytics', active: false },
+                  { label: 'Inbox', active: false, hasNotification: true },
                   { label: 'Payouts', active: false },
                   { label: 'Settings', active: false },
                 ].map((item) => (
                   <div
                     key={item.label}
-                    className="px-3 py-2 rounded"
+                    className="px-3 py-2 rounded flex items-center justify-between"
                     style={{
                       background: item.active ? 'var(--sk-pink-dark)' : 'transparent',
                       color: item.active ? 'var(--sk-pink-light)' : 'var(--sk-text-secondary)',
@@ -129,78 +145,198 @@ export function Hero() {
                     }}
                   >
                     {item.label}
+                    {item.hasNotification && (
+                      <div
+                        style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          background: 'var(--sk-pink)',
+                        }}
+                      />
+                    )}
                   </div>
                 ))}
               </div>
 
               {/* Main area */}
               <div className="flex-1 p-6 flex flex-col gap-6">
-                {/* Revenue card */}
-                <div>
-                  <div
-                    style={{
-                      fontSize: '12px',
-                      color: 'var(--sk-text-muted)',
-                      fontFamily: 'var(--sk-font-body)',
-                      marginBottom: '8px',
-                    }}
-                  >
-                    Total Revenue
+                {/* Campaign stats row */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div
+                      style={{
+                        fontSize: '12px',
+                        color: 'var(--sk-text-muted)',
+                        fontFamily: 'var(--sk-font-body)',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      Active Campaigns
+                    </div>
+                    <div
+                      style={{
+                        fontSize: '28px',
+                        fontWeight: 600,
+                        color: 'var(--sk-text-primary)',
+                        fontFamily: 'var(--sk-font-display)',
+                      }}
+                    >
+                      3
+                    </div>
                   </div>
-                  <div
-                    style={{
-                      fontSize: '32px',
-                      fontWeight: 600,
-                      color: 'var(--sk-text-primary)',
-                      fontFamily: 'var(--sk-font-display)',
-                    }}
-                  >
-                    $128,430
+                  <div>
+                    <div
+                      style={{
+                        fontSize: '12px',
+                        color: 'var(--sk-text-muted)',
+                        fontFamily: 'var(--sk-font-body)',
+                        marginBottom: '6px',
+                      }}
+                    >
+                      Applications received
+                    </div>
+                    <div
+                      style={{
+                        fontSize: '28px',
+                        fontWeight: 600,
+                        color: 'var(--sk-text-primary)',
+                        fontFamily: 'var(--sk-font-display)',
+                      }}
+                    >
+                      47
+                    </div>
                   </div>
                 </div>
 
-                {/* Bar chart */}
-                <div className="flex items-end gap-2 h-32">
-                  {[40, 60, 50, 70, 45, 85, 55, 75, 65, 90].map((height, i) => (
-                    <div
-                      key={i}
-                      className="flex-1 rounded-sm"
+                {/* Campaign card */}
+                <div
+                  style={{
+                    padding: '12px',
+                    background: 'var(--sk-surface-2)',
+                    borderRadius: 'var(--sk-radius-md)',
+                    border: '0.5px solid var(--sk-border)',
+                  }}
+                >
+                  <div
+                    style={{
+                      fontSize: '14px',
+                      fontWeight: 600,
+                      color: 'var(--sk-text-primary)',
+                      fontFamily: 'var(--sk-font-body)',
+                      marginBottom: '4px',
+                    }}
+                  >
+                    Back to school haul
+                  </div>
+                  <div className="flex items-center gap-3 mt-2">
+                    <span
                       style={{
-                        height: `${height}%`,
-                        background: i === 9 ? 'var(--sk-pink)' : 'var(--sk-surface-3)',
+                        fontSize: '11px',
+                        color: 'var(--sk-text-muted)',
+                        fontFamily: 'var(--sk-font-body)',
                       }}
-                    />
+                    >
+                      Zara Kenya
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '10px',
+                        padding: '2px 6px',
+                        borderRadius: '4px',
+                        background: 'var(--sk-success-surface)',
+                        color: 'var(--sk-success-text)',
+                        fontFamily: 'var(--sk-font-body)',
+                      }}
+                    >
+                      Active
+                    </span>
+                    <span
+                      style={{
+                        fontSize: '11px',
+                        color: 'var(--sk-text-secondary)',
+                        fontFamily: 'var(--sk-font-body)',
+                      }}
+                    >
+                      5 approved
+                    </span>
+                  </div>
+                </div>
+
+                {/* Creator payout rows */}
+                <div className="flex flex-col gap-2">
+                  {[
+                    { name: 'Maya R.', status: 'Content approved', amount: '$800', color: 'var(--sk-pink)' },
+                    { name: 'Zoe N.', status: 'Under review', amount: '$160', color: 'var(--sk-text-muted)' },
+                  ].map((creator) => (
+                    <div
+                      key={creator.name}
+                      className="flex items-center justify-between"
+                      style={{
+                        padding: '8px',
+                        borderRadius: 'var(--sk-radius-sm)',
+                        background: 'var(--sk-surface-2)',
+                      }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <span
+                          style={{
+                            fontSize: '13px',
+                            fontWeight: 500,
+                            color: 'var(--sk-text-primary)',
+                            fontFamily: 'var(--sk-font-body)',
+                          }}
+                        >
+                          {creator.name}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '11px',
+                            color: 'var(--sk-text-muted)',
+                            fontFamily: 'var(--sk-font-body)',
+                          }}
+                        >
+                          {creator.status}
+                        </span>
+                      </div>
+                      <span
+                        style={{
+                          fontSize: '14px',
+                          fontWeight: 600,
+                          color: creator.color,
+                          fontFamily: 'var(--sk-font-body)',
+                        }}
+                      >
+                        {creator.amount}
+                      </span>
+                    </div>
                   ))}
                 </div>
 
-                {/* Stats grid */}
-                <div className="grid grid-cols-2 gap-4 mt-4">
+                {/* Stat chips */}
+                <div className="flex items-center gap-3 mt-2">
                   {[
-                    { label: 'Active Users', value: '24,890' },
-                    { label: 'Transactions', value: '58,294' },
-                    { label: 'Success Rate', value: '99.99%' },
-                    { label: 'Avg Response', value: '320ms' },
+                    { label: 'Reach', value: '284K' },
+                    { label: 'Engagement', value: '4.7%' },
+                    { label: 'ROI', value: '3.2×' },
                   ].map((stat) => (
-                    <div key={stat.label}>
-                      <div
-                        style={{
-                          fontSize: '18px',
-                          fontWeight: 600,
-                          color: 'var(--sk-text-primary)',
-                          fontFamily: 'var(--sk-font-body)',
-                        }}
-                      >
+                    <div
+                      key={stat.label}
+                      style={{
+                        padding: '6px 12px',
+                        borderRadius: 'var(--sk-radius-sm)',
+                        background: 'var(--sk-surface-3)',
+                        fontSize: '11px',
+                        fontFamily: 'var(--sk-font-body)',
+                      }}
+                    >
+                      <span style={{ color: 'var(--sk-text-primary)', fontWeight: 600 }}>
                         {stat.value}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: '11px',
-                          color: 'var(--sk-text-muted)',
-                          fontFamily: 'var(--sk-font-body)',
-                        }}
-                      >
+                      </span>
+                      {' '}
+                      <span style={{ color: 'var(--sk-text-muted)' }}>
                         {stat.label}
-                      </div>
+                      </span>
                     </div>
                   ))}
                 </div>
