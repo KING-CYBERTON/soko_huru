@@ -50,7 +50,7 @@ export function Features() {
       className="py-20 px-20 max-md:px-5 max-md:py-16"
       style={{ background: 'var(--sk-base)' }}
     >
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         {/* Header */}
         <div className="text-center mb-12 max-md:mb-12">
           <span

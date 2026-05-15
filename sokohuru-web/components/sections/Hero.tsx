@@ -30,7 +30,7 @@ export function Hero() {
     <section
       className="hero-mesh-bg grain-overlay relative min-h-screen flex items-center px-20 max-md:px-5 max-md:py-16"
     >
-      <div className="w-full max-w-[1400px] mx-auto grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-12">
+      <div className="w-full max-w-[1600px] mx-auto grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-12">
         {/* Left column - Content */}
         <motion.div
           className="flex flex-col"

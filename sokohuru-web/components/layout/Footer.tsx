@@ -45,8 +45,9 @@ export function Footer() {
     >
       {/* Main footer content */}
       <div className="px-20 pt-12 pb-8 max-md:px-5 max-md:pt-8 max-md:pb-6">
-        {/* Top section */}
-        <div className="flex flex-row justify-between gap-16 max-md:flex-col max-md:gap-8">
+        <div className="max-w-[1600px] mx-auto">
+          {/* Top section */}
+          <div className="flex flex-row justify-between gap-16 max-md:flex-col max-md:gap-8">
           {/* Left - Logo + tagline + social */}
           <div className="flex flex-col gap-4 max-w-[280px]">
             {/* Logo */}
@@ -198,15 +199,15 @@ export function Footer() {
               </div>
             ))}
           </div>
-        </div>
+          </div>
 
-        {/* Bottom section */}
-        <div
-          className="flex flex-row justify-between items-center mt-8 pt-6 max-md:flex-col max-md:items-start max-md:gap-3"
-          style={{
-            borderTop: '0.5px solid var(--sk-border)',
-          }}
-        >
+          {/* Bottom section */}
+          <div
+            className="flex flex-row justify-between items-center mt-8 pt-6 max-md:flex-col max-md:items-start max-md:gap-3"
+            style={{
+              borderTop: '0.5px solid var(--sk-border)',
+            }}
+          >
           {/* Copyright */}
           <p
             style={{
@@ -253,6 +254,7 @@ export function Footer() {
           </div>
         </div>
       </div>
+    </div>
     </footer>
   );
 }

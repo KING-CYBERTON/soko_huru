@@ -68,7 +68,7 @@ export function Stats() {
         background: 'linear-gradient(180deg, var(--sk-surface-1) 0%, var(--sk-base) 100%)',
       }}
     >
-      <div className="max-w-[1200px] mx-auto">
+      <div className="max-w-[1600px] mx-auto">
         <div className="grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-12">
           {/* Left column - Heading + subtext */}
           <div>

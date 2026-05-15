@@ -8,7 +8,7 @@ export function Testimonial() {
         borderBottom: '0.5px solid var(--sk-border)',
       }}
     >
-      <div className="max-w-[900px] mx-auto">
+      <div className="max-w-[1000px] mx-auto">
         {/* Quote mark */}
         <div
           style={{

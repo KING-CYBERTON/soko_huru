@@ -37,12 +37,13 @@ export function Nav() {
           borderBottom: isScrolled ? undefined : '0.5px solid var(--sk-border)',
         }}
       >
-        <div
-          className="flex items-center justify-between h-[72px] px-20 max-md:h-[60px] max-md:px-5"
-          style={{
-            fontFamily: 'var(--sk-font-body)',
-          }}
-        >
+        <div className="px-20 max-md:px-5">
+          <div
+            className="max-w-[1600px] mx-auto flex items-center justify-between h-[72px] max-md:h-[60px]"
+            style={{
+              fontFamily: 'var(--sk-font-body)',
+            }}
+          >
           {/* Logo */}
           <Link href="/" className="flex items-center gap-[10px]">
             <div
@@ -146,6 +147,7 @@ export function Nav() {
               style={{ background: 'var(--sk-text-secondary)' }}
             />
           </button>
+        </div>
         </div>
       </nav>
 

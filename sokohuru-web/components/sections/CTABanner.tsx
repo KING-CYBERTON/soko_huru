@@ -8,7 +8,7 @@ export function CTABanner() {
         background: 'var(--sk-pink)',
       }}
     >
-      <div className="max-w-[1200px] mx-auto flex items-center justify-between gap-8 max-md:flex-col max-md:text-center">
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between gap-8 max-md:flex-col max-md:text-center">
         {/* Text left */}
         <div>
           <h2
