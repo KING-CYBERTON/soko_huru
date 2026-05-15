@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/widgets/cards/sk_card.dart';
 import '../../auth/providers/auth_provider.dart';
 
 /// Creator home screen
@@ -36,39 +37,37 @@ class CreatorHomeScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
-            Card(
-              child: Padding(
-                padding: const EdgeInsets.all(AppSpacing.lg),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Your Stats',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
+            SkCard(
+              padding: const EdgeInsets.all(AppSpacing.lg),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    'Your Stats',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: AppSpacing.md),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _StatItem(
+                        label: 'Active Campaigns',
+                        value: '0',
                       ),
-                    ),
-                    const SizedBox(height: AppSpacing.md),
-                    const Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        _StatItem(
-                          label: 'Active Campaigns',
-                          value: '0',
-                        ),
-                        _StatItem(
-                          label: 'Completed',
-                          value: '0',
-                        ),
-                        _StatItem(
-                          label: 'Earnings',
-                          value: 'KES 0',
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                      _StatItem(
+                        label: 'Completed',
+                        value: '0',
+                      ),
+                      _StatItem(
+                        label: 'Earnings',
+                        value: 'KES 0',
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],
@@ -99,7 +98,7 @@ class _StatItem extends StatelessWidget {
             color: AppColors.pink,
           ),
         ),
-        const SizedBox(height: 4),
+        const SizedBox(height: AppSpacing.xs),
         Text(
           label,
           style: const TextStyle(

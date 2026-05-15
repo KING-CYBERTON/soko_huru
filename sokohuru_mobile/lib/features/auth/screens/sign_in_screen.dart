@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
+import '../../../core/widgets/buttons/sk_button.dart';
+import '../../../core/widgets/inputs/sk_input.dart';
 import '../providers/auth_provider.dart';
 
 /// Sign in screen for all users
@@ -86,13 +88,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   ),
                 ),
                 const SizedBox(height: AppSpacing.xxxl),
-                TextFormField(
+                SkInput(
                   controller: _emailController,
+                  label: 'Email',
                   keyboardType: TextInputType.emailAddress,
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: Icon(Icons.email_outlined),
-                  ),
+                  prefixIcon: const Icon(Icons.email_outlined),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -104,13 +104,11 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                TextFormField(
+                SkInput(
                   controller: _passwordController,
+                  label: 'Password',
                   obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    prefixIcon: Icon(Icons.lock_outlined),
-                  ),
+                  prefixIcon: const Icon(Icons.lock_outlined),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -122,25 +120,19 @@ class _SignInScreenState extends ConsumerState<SignInScreen> {
                   },
                 ),
                 const SizedBox(height: AppSpacing.xxl),
-                ElevatedButton(
+                SkButton(
+                  label: 'Sign In',
+                  loading: _isLoading,
                   onPressed: _isLoading ? null : _signIn,
-                  child: _isLoading
-                      ? const SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: AppColors.white,
-                          ),
-                        )
-                      : const Text('Sign In'),
+                  fullWidth: true,
                 ),
                 const SizedBox(height: AppSpacing.lg),
-                TextButton(
+                SkButton.ghost(
+                  label: 'Don\'t have an account? Sign up',
                   onPressed: () {
                     // TODO: Navigate to sign up
                   },
-                  child: const Text('Don\'t have an account? Sign up'),
+                  fullWidth: true,
                 ),
               ],
             ),
