@@ -3,7 +3,7 @@ import Link from 'next/link';
 export function CTABanner() {
   return (
     <section
-      className="py-16 px-20 max-md:px-5 max-md:py-12"
+      className="py-20 px-20 max-md:px-5 max-md:py-16"
       style={{
         background: 'var(--sk-pink)',
       }}
@@ -14,7 +14,7 @@ export function CTABanner() {
           <h2
             style={{
               fontFamily: 'var(--sk-font-display)',
-              fontSize: '40px',
+              fontSize: 'clamp(28px, 4vw, 40px)',
               fontWeight: 600,
               color: '#FFFFFF',
               lineHeight: 1.2,
@@ -23,7 +23,7 @@ export function CTABanner() {
             Ready to launch your first campaign?
           </h2>
           <p
-            className="mt-3"
+            className="mt-4"
             style={{
               fontSize: '16px',
               color: 'rgba(255, 255, 255, 0.7)',

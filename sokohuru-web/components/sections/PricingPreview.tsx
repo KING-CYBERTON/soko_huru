@@ -140,7 +140,7 @@ export function PricingPreview() {
                   fontFamily: 'var(--sk-font-body)',
                   textTransform: 'uppercase',
                   letterSpacing: '.05em',
-                  marginBottom: '8px',
+                  marginBottom: '6px',
                 }}
               >
                 {plan.name}
@@ -153,7 +153,7 @@ export function PricingPreview() {
                   fontWeight: 600,
                   color: 'var(--sk-text-primary)',
                   fontFamily: 'var(--sk-font-display)',
-                  marginBottom: '4px',
+                  marginBottom: '6px',
                 }}
               >
                 {plan.price}
@@ -165,14 +165,14 @@ export function PricingPreview() {
                   fontSize: '14px',
                   color: 'var(--sk-text-muted)',
                   fontFamily: 'var(--sk-font-body)',
-                  marginBottom: '24px',
+                  marginBottom: '20px',
                 }}
               >
                 {plan.subtitle}
               </p>
 
               {/* Features */}
-              <ul className="flex flex-col gap-3 mb-8 flex-1">
+              <ul className="flex flex-col gap-3 mb-6 flex-1">
                 {plan.features.map((feature) => (
                   <li
                     key={feature}

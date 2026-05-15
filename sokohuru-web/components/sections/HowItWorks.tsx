@@ -151,7 +151,7 @@ export function HowItWorks() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '16px',
+                    marginBottom: '12px',
                   }}
                 >
                   <Icon size={28} style={{ color: 'var(--sk-pink-light)' }} />
@@ -164,7 +164,7 @@ export function HowItWorks() {
                     fontWeight: 600,
                     color: 'var(--sk-pink)',
                     fontFamily: 'var(--sk-font-body)',
-                    marginBottom: '8px',
+                    marginBottom: '6px',
                   }}
                 >
                   Step {index + 1}
@@ -177,7 +177,7 @@ export function HowItWorks() {
                     fontWeight: 600,
                     color: 'var(--sk-text-primary)',
                     fontFamily: 'var(--sk-font-body)',
-                    marginBottom: '8px',
+                    marginBottom: '6px',
                   }}
                 >
                   {step.title}

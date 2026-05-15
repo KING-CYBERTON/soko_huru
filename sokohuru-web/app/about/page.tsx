@@ -30,7 +30,7 @@ export default function AboutPage() {
             marginBottom: '32px',
           }}
         >
-          This page is coming soon. We're building the premier creator marketplace for East Africa.
+          This page is coming soon. We&apos;re building the premier creator marketplace for East Africa.
         </p>
         <Link
           href="/"

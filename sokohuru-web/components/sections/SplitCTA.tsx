@@ -6,7 +6,7 @@ export function SplitCTA() {
     <section className="grid grid-cols-2 max-md:grid-cols-1">
       {/* Left panel - For Creators */}
       <div
-        className="py-20 px-16 max-md:px-5 max-md:py-16"
+        className="py-20 px-20 max-md:px-5 max-md:py-16"
         style={{
           background: 'var(--sk-pink-dark)',
         }}
@@ -28,7 +28,7 @@ export function SplitCTA() {
             className="mt-4"
             style={{
               fontFamily: 'var(--sk-font-display)',
-              fontSize: 'clamp(28px, 4vw, 36px)',
+              fontSize: 'clamp(28px, 4vw, 40px)',
               fontWeight: 600,
               color: 'var(--sk-text-primary)',
               lineHeight: 1.2,
@@ -57,7 +57,7 @@ export function SplitCTA() {
 
       {/* Right panel - For Brands */}
       <div
-        className="py-20 px-16 max-md:px-5 max-md:py-16"
+        className="py-20 px-20 max-md:px-5 max-md:py-16"
         style={{
           background: 'var(--sk-surface-2)',
         }}
@@ -79,7 +79,7 @@ export function SplitCTA() {
             className="mt-4"
             style={{
               fontFamily: 'var(--sk-font-display)',
-              fontSize: 'clamp(28px, 4vw, 36px)',
+              fontSize: 'clamp(28px, 4vw, 40px)',
               fontWeight: 600,
               color: 'var(--sk-text-primary)',
               lineHeight: 1.2,

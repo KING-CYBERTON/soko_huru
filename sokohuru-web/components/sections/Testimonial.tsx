@@ -1,7 +1,7 @@
 export function Testimonial() {
   return (
     <section
-      className="py-16 px-20 max-md:px-5 max-md:py-12"
+      className="py-20 px-20 max-md:px-5 max-md:py-16"
       style={{
         background: 'var(--sk-surface-1)',
         borderTop: '0.5px solid var(--sk-border)',
@@ -25,7 +25,7 @@ export function Testimonial() {
         {/* Quote text */}
         <p
           style={{
-            fontSize: '16px',
+            fontSize: '18px',
             color: 'var(--sk-text-secondary)',
             fontStyle: 'italic',
             lineHeight: 1.7,

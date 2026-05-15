@@ -52,7 +52,7 @@ export function Features() {
     >
       <div className="max-w-[1200px] mx-auto">
         {/* Header */}
-        <div className="text-center mb-16 max-md:mb-12">
+        <div className="text-center mb-12 max-md:mb-12">
           <span
             style={{
               fontSize: '11px',
@@ -116,7 +116,7 @@ export function Features() {
                 {/* Icon */}
                 <div
                   style={{
-                    marginBottom: '16px',
+                    marginBottom: '12px',
                   }}
                 >
                   <Icon size={32} style={{ color: 'var(--sk-pink-light)' }} />
@@ -127,9 +127,9 @@ export function Features() {
                   style={{
                     fontFamily: 'var(--sk-font-body)',
                     fontSize: '18px',
-                    fontWeight: 700,
+                    fontWeight: 600,
                     color: 'var(--sk-text-primary)',
-                    marginBottom: '8px',
+                    marginBottom: '6px',
                   }}
                 >
                   {feature.title}

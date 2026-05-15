@@ -20,15 +20,6 @@ const staggerContainer = {
   },
 };
 
-const floatAnim = {
-  y: [0, -12, 0],
-  transition: {
-    duration: 4,
-    repeat: Infinity,
-    ease: 'easeInOut' as const,
-  },
-};
-
 export function Hero() {
   const scrollToHowItWorks = () => {
     const element = document.getElementById('how-it-works');
@@ -83,7 +74,7 @@ export function Hero() {
           {/* Subtext */}
           <motion.p
             variants={fadeUp}
-            className="mt-5 max-w-[520px]"
+            className="mt-6 max-w-[520px]"
             style={{
               fontSize: '18px',
               color: 'var(--sk-text-secondary)',

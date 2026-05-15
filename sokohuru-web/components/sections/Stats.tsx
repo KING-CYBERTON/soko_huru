@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useInView, animate } from 'framer-motion';
 
 interface CountUpProps {
   value: string;
@@ -17,7 +17,8 @@ function CountUp({ value, inView }: CountUpProps) {
     // Parse the numeric part and suffix from the value
     const match = value.match(/^([\d.]+)(.*)$/);
     if (!match) {
-      setDisplayValue(value);
+      // Use a microtask to avoid synchronous setState in effect
+      Promise.resolve().then(() => setDisplayValue(value));
       return;
     }
 
@@ -124,7 +125,7 @@ export function Stats() {
                     fontSize: '40px',
                     fontWeight: 600,
                     color: 'var(--sk-pink)',
-                    marginBottom: '8px',
+                    marginBottom: '6px',
                   }}
                 >
                   <CountUp value={stat.value} inView={isInView} />
