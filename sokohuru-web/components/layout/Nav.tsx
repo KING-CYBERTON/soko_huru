@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui';
 import { cn } from '@/lib/cn';
@@ -14,14 +14,27 @@ const NAV_LINKS = [
 
 export function Nav() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <>
       <nav
-        className="sticky top-0 z-50"
+        className={cn(
+          'sticky top-0 z-50 transition-all duration-300',
+          isScrolled ? 'glass-nav' : ''
+        )}
         style={{
-          background: 'var(--sk-surface-1)',
-          borderBottom: '0.5px solid var(--sk-border)',
+          background: isScrolled ? undefined : 'var(--sk-surface-1)',
+          borderBottom: isScrolled ? undefined : '0.5px solid var(--sk-border)',
         }}
       >
         <div
