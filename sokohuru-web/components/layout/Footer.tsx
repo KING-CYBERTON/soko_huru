@@ -1,15 +1,14 @@
 'use client';
 
 import Link from 'next/link';
+import { Smartphone } from 'lucide-react';
 
 const FOOTER_LINKS = [
   {
     title: 'Products',
     links: [
       { label: 'Campaigns', href: '/campaigns' },
-      { label: 'Payouts', href: '/payouts' },
-      { label: 'Analytics', href: '/analytics' },
-      { label: 'Subscriptions', href: '/pricing' },
+      { label: 'Pricing', href: '#pricing' },
     ],
   },
   {
@@ -17,25 +16,18 @@ const FOOTER_LINKS = [
     links: [
       { label: 'For Creators', href: '/for-creators' },
       { label: 'For Brands', href: '/for-brands' },
-      { label: 'For Agencies', href: '/for-agencies' },
-      { label: 'Enterprise', href: '/enterprise' },
     ],
   },
   {
     title: 'Resources',
     links: [
-      { label: 'Docs', href: '/docs' },
       { label: 'Blog', href: '/blog' },
-      { label: 'Help Center', href: '/help' },
-      { label: 'Status', href: '/status' },
     ],
   },
   {
     title: 'Company',
     links: [
-      { label: 'About Us', href: '/about' },
-      { label: 'Careers', href: '/careers' },
-      { label: 'Partners', href: '/partners' },
+      { label: 'About', href: '/about' },
       { label: 'Contact', href: '/contact' },
     ],
   },
@@ -66,7 +58,7 @@ export function Footer() {
                   height: '28px',
                   background: 'var(--sk-pink)',
                   borderRadius: 'var(--sk-radius-sm)',
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'var(--sk-font-body)',
                   fontWeight: 700,
                   fontSize: '14px',
                   color: '#FFFFFF',
@@ -77,7 +69,7 @@ export function Footer() {
               <div className="flex items-center">
                 <span
                   style={{
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'var(--sk-font-body)',
                     fontWeight: 700,
                     fontSize: '18px',
                     color: 'var(--sk-text-primary)',
@@ -87,7 +79,7 @@ export function Footer() {
                 </span>
                 <span
                   style={{
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'var(--sk-font-body)',
                     fontWeight: 700,
                     fontSize: '18px',
                     color: 'var(--sk-pink)',
@@ -127,6 +119,48 @@ export function Footer() {
                 />
               ))}
             </div>
+
+            {/* App Store buttons */}
+            <div className="flex flex-col gap-2 mt-4">
+              <a
+                href="#"
+                className="flex items-center gap-2 px-3 py-2 rounded transition-opacity hover:opacity-80"
+                style={{
+                  background: 'var(--sk-surface-2)',
+                  border: '0.5px solid var(--sk-border)',
+                }}
+              >
+                <Smartphone size={16} style={{ color: 'var(--sk-text-secondary)' }} />
+                <span
+                  style={{
+                    fontSize: '12px',
+                    color: 'var(--sk-text-secondary)',
+                    fontFamily: 'var(--sk-font-body)',
+                  }}
+                >
+                  App Store
+                </span>
+              </a>
+              <a
+                href="#"
+                className="flex items-center gap-2 px-3 py-2 rounded transition-opacity hover:opacity-80"
+                style={{
+                  background: 'var(--sk-surface-2)',
+                  border: '0.5px solid var(--sk-border)',
+                }}
+              >
+                <Smartphone size={16} style={{ color: 'var(--sk-text-secondary)' }} />
+                <span
+                  style={{
+                    fontSize: '12px',
+                    color: 'var(--sk-text-secondary)',
+                    fontFamily: 'var(--sk-font-body)',
+                  }}
+                >
+                  Google Play
+                </span>
+              </a>
+            </div>
           </div>
 
           {/* Right - Footer links grid */}
@@ -135,7 +169,7 @@ export function Footer() {
               <div key={column.title} className="flex flex-col gap-3">
                 <h3
                   style={{
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'var(--sk-font-body)',
                     fontWeight: 700,
                     fontSize: '13px',
                     color: 'var(--sk-text-primary)',
@@ -150,7 +184,7 @@ export function Footer() {
                         href={link.href}
                         className="transition-colors duration-150 hover:[color:var(--sk-text-secondary)]"
                         style={{
-                          fontFamily: 'Inter, sans-serif',
+                          fontFamily: 'var(--sk-font-body)',
                           fontSize: '12px',
                           lineHeight: 2,
                           color: 'var(--sk-text-muted)',

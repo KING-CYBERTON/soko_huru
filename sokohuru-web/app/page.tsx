@@ -5,6 +5,7 @@ import { HowItWorks } from '@/components/sections/HowItWorks';
 import { Features } from '@/components/sections/Features';
 import { Stats } from '@/components/sections/Stats';
 import { Testimonial } from '@/components/sections/Testimonial';
+import { PricingPreview } from '@/components/sections/PricingPreview';
 import { SplitCTA } from '@/components/sections/SplitCTA';
 import { CTABanner } from '@/components/sections/CTABanner';
 
@@ -22,6 +23,7 @@ export default function Home() {
       <Features />
       <Stats />
       <Testimonial />
+      <PricingPreview />
       <SplitCTA />
       <CTABanner />
     </main>

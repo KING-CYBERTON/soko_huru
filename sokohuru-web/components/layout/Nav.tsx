@@ -6,11 +6,10 @@ import { Button } from '@/components/ui';
 import { cn } from '@/lib/cn';
 
 const NAV_LINKS = [
-  { label: 'Products', href: '/products' },
-  { label: 'Solutions', href: '/solutions' },
-  { label: 'Pricing', href: '/pricing' },
-  { label: 'Resources', href: '/resources' },
-  { label: 'Company', href: '/company' },
+  { label: 'For Creators', href: '/for-creators' },
+  { label: 'For Brands', href: '/for-brands' },
+  { label: 'Campaigns', href: '/campaigns' },
+  { label: 'Pricing', href: '#pricing' }, // TODO: implement /pricing page in Sprint 3
 ];
 
 export function Nav() {
@@ -40,7 +39,7 @@ export function Nav() {
                 height: '28px',
                 background: 'var(--sk-pink)',
                 borderRadius: 'var(--sk-radius-sm)',
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'var(--sk-font-body)',
                 fontWeight: 700,
                 fontSize: '14px',
                 color: '#FFFFFF',
@@ -51,7 +50,7 @@ export function Nav() {
             <div className="flex items-center">
               <span
                 style={{
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'var(--sk-font-body)',
                   fontWeight: 700,
                   fontSize: '18px',
                   color: 'var(--sk-text-primary)',
@@ -61,7 +60,7 @@ export function Nav() {
               </span>
               <span
                 style={{
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'var(--sk-font-body)',
                   fontWeight: 700,
                   fontSize: '18px',
                   color: 'var(--sk-pink)',
@@ -80,7 +79,7 @@ export function Nav() {
                 href={link.href}
                 className="transition-colors duration-150 hover:[color:var(--sk-text-primary)]"
                 style={{
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'var(--sk-font-body)',
                   fontSize: '14px',
                   color: 'var(--sk-text-secondary)',
                 }}
@@ -96,7 +95,7 @@ export function Nav() {
               href="/auth/login"
               className="transition-colors duration-150 hover:[color:var(--sk-text-primary)]"
               style={{
-                fontFamily: 'Inter, sans-serif',
+                fontFamily: 'var(--sk-font-body)',
                 fontSize: '14px',
                 color: 'var(--sk-text-secondary)',
               }}
@@ -190,7 +189,7 @@ export function Nav() {
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   style={{
-                    fontFamily: 'Inter, sans-serif',
+                    fontFamily: 'var(--sk-font-body)',
                     fontSize: '16px',
                     color: 'var(--sk-text-primary)',
                   }}
@@ -207,7 +206,7 @@ export function Nav() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="text-center"
                 style={{
-                  fontFamily: 'Inter, sans-serif',
+                  fontFamily: 'var(--sk-font-body)',
                   fontSize: '14px',
                   color: 'var(--sk-text-secondary)',
                 }}
