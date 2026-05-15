@@ -1,8 +1,33 @@
 'use client';
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui';
 import { ShieldCheck } from 'lucide-react';
+
+// Animation variants
+const fadeUp = {
+  initial: { opacity: 0, y: 24 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.5, ease: 'easeOut' },
+};
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const floatAnim = {
+  y: [0, -12, 0],
+  transition: {
+    duration: 4,
+    repeat: Infinity,
+    ease: 'easeInOut' as const,
+  },
+};
 
 export function Hero() {
   const scrollToHowItWorks = () => {
@@ -12,14 +37,19 @@ export function Hero() {
 
   return (
     <section
-      className="min-h-screen flex items-center px-20 max-md:px-5 max-md:py-16"
-      style={{ background: 'var(--sk-surface-1)' }}
+      className="hero-mesh-bg grain-overlay relative min-h-screen flex items-center px-20 max-md:px-5 max-md:py-16"
     >
       <div className="w-full max-w-[1400px] mx-auto grid grid-cols-2 gap-16 items-center max-md:grid-cols-1 max-md:gap-12">
         {/* Left column - Content */}
-        <div className="flex flex-col">
+        <motion.div
+          className="flex flex-col"
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+        >
           {/* Eyebrow */}
-          <span
+          <motion.span
+            variants={fadeUp}
             style={{
               fontSize: '11px',
               fontWeight: 500,
@@ -30,10 +60,11 @@ export function Hero() {
             }}
           >
             THE EAST AFRICAN CREATOR MARKETPLACE
-          </span>
+          </motion.span>
 
           {/* H1 */}
-          <h1
+          <motion.h1
+            variants={fadeUp}
             className="mt-4"
             style={{
               fontFamily: 'var(--sk-font-display)',
@@ -47,10 +78,11 @@ export function Hero() {
             <br />
             the right{' '}
             <span style={{ color: 'var(--sk-pink)' }}>creators.</span>
-          </h1>
+          </motion.h1>
 
           {/* Subtext */}
-          <p
+          <motion.p
+            variants={fadeUp}
             className="mt-5 max-w-[520px]"
             style={{
               fontSize: '18px',
@@ -60,10 +92,13 @@ export function Hero() {
             }}
           >
             Authentic campaigns, real results. Brands find verified East African creators. Creators earn real income from partnerships they believe in.
-          </p>
+          </motion.p>
 
           {/* Button row */}
-          <div className="flex items-center gap-3 mt-8 max-md:flex-col max-md:w-full">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-3 mt-8 max-md:flex-col max-md:w-full"
+          >
             <Link href="/auth/signup" className="max-md:w-full">
               <Button variant="primary" size="lg" fullWidth className="max-md:w-full">
                 Start for free →
@@ -87,10 +122,13 @@ export function Hero() {
             >
               See how it works
             </button>
-          </div>
+          </motion.div>
 
           {/* Trust line */}
-          <div className="flex items-center gap-2 mt-6">
+          <motion.div
+            variants={fadeUp}
+            className="flex items-center gap-2 mt-6"
+          >
             <ShieldCheck size={16} style={{ color: 'var(--sk-text-muted)' }} />
             <span
               style={{
@@ -101,19 +139,21 @@ export function Hero() {
             >
               No subscription required · Pay per campaign
             </span>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Right column - Dashboard mockup */}
-        <div className="max-md:hidden">
-          <div
-            className="rounded-xl overflow-hidden"
-            style={{
-              background: 'var(--sk-surface-1)',
-              border: '0.5px solid var(--sk-border)',
-              borderRadius: 'var(--sk-radius-xl)',
-            }}
-          >
+        <motion.div
+          className="max-md:hidden"
+          initial={{ opacity: 0, x: 40 }}
+          animate={{ opacity: 1, x: 0, y: [0, -12, 0] }}
+          transition={{
+            opacity: { duration: 0.6, ease: 'easeOut' },
+            x: { duration: 0.6, ease: 'easeOut' },
+            y: { duration: 4, repeat: Infinity, ease: 'easeInOut' },
+          }}
+        >
+          <div className="glass-card overflow-hidden">
             {/* Dashboard container */}
             <div className="flex" style={{ height: '500px' }}>
               {/* Sidebar */}
@@ -343,7 +383,7 @@ export function Hero() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
